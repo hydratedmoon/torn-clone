@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Gym{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>🏋️ Gym</h1>
+  <p>Energy: {{ player.energy | round(1) }} (training costs {{ energy_cost }})</p>
+
+  <form method="post" class="stat-form">
+    {% for stat in ['strength', 'speed', 'dexterity', 'defense'] %}
+    <button type="submit" name="stat" value="{{ stat }}" class="btn stat-btn">
+      Train {{ stat.capitalize() }}<br><small>currently {{ player[stat] }}</small>
+    </button>
+    {% endfor %}
+  </form>
+</div>
+{% endblock %}
