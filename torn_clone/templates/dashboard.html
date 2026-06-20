@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>Welcome, {{ player.username }}</h1>
+
+  {% if player.in_jail() %}
+    <div class="jail-banner">🔒 In jail for {{ player.jail_remaining() }} more seconds</div>
+  {% endif %}
+
+  <div class="stat-grid">
+    <div class="stat-box"><span class="stat-label">Money</span><span class="stat-value">${{ player.money }}</span></div>
+    <div class="stat-box"><span class="stat-label">Strength</span><span class="stat-value">{{ player.strength }}</span></div>
+    <div class="stat-box"><span class="stat-label">Speed</span><span class="stat-value">{{ player.speed }}</span></div>
+    <div class="stat-box"><span class="stat-label">Dexterity</span><span class="stat-value">{{ player.dexterity }}</span></div>
+    <div class="stat-box"><span class="stat-label">Defense</span><span class="stat-value">{{ player.defense }}</span></div>
+  </div>
+
+  <div class="bar-group">
+    <label>Energy: {{ player.energy | round(1) }} / {{ max_energy }}</label>
+    <div class="bar"><div class="bar-fill energy" style="width: {{ (player.energy / max_energy * 100) | round(1) }}%"></div></div>
+  </div>
+
+  <div class="bar-group">
+    <label>Nerve: {{ player.nerve | round(1) }} / {{ max_nerve }}</label>
+    <div class="bar"><div class="bar-fill nerve" style="width: {{ (player.nerve / max_nerve * 100) | round(1) }}%"></div></div>
+  </div>
+
+  <div class="action-links">
+    <a class="btn" href="{{ url_for('gym') }}">Go to Gym</a>
+    <a class="btn" href="{{ url_for('crimes') }}">Commit a Crime</a>
+    <a class="btn" href="{{ url_for('players') }}">Find Targets</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Players{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>👥 Other Players</h1>
+  <table class="crime-table">
+    <thead>
+      <tr><th>Username</th><th>Total Stats</th><th>Money</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for p in all_players %}
+      <tr>
+        <td>{{ p.username }}</td>
+        <td>{{ p.total_battle_stats() }}</td>
+        <td>${{ p.money }}</td>
+        <td>
+          <form method="post" action="{{ url_for('fight', opponent_id=p.id) }}">
+            <button type="submit" class="btn small">Attack</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% if not all_players %}
+    <p>No other players yet — register a second account to test fighting!</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Torn Clone{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">⚔️ Torn Clone</div>
+    {% if session.get('player_id') %}
+    <div class="nav-links">
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('gym') }}">Gym</a>
+      <a href="{{ url_for('crimes') }}">Crimes</a>
+      <a href="{{ url_for('players') }}">Players</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    {% endif %}
+  </nav>
+
+  <main class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for message in messages %}
+            <div class="flash">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
